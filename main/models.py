@@ -39,12 +39,8 @@ class Category(models.Model):
     def __str__(self):
         return self.name
 
-    # class Meta:
-    #     verbose_name_plural = 'Categories'
-
 
 class Product(CodeGenerate):
-    """Maxsulotlar"""
     name = models.CharField(max_length=255)
     category = models.ForeignKey(Category, on_delete=models.CASCADE)
     image = models.ImageField(upload_to='media/product/')
@@ -59,7 +55,7 @@ class Product(CodeGenerate):
 
     def save(self, *args, **kwargs):
         QRcode = qrcode.QRCode()
-        # QRcode.add_data(f"http://127.0.0.1:8000/product/detail/{self.code}")
+       
         QRcode.add_data(
             f"Maxsulot Nomi: {self.name},\nCategoryasi: {self.category},\nNarxi: {self.price},\nSoni: {self.quantity}"
         )
@@ -79,7 +75,6 @@ class Product(CodeGenerate):
 
 
 class EnterProduct(CodeGenerate):
-    """Do'kongdagi Mavjud maxsulotni Ustiga qo'shish yani qolmagan bolsa yana qoshish"""
     product = models.ForeignKey(Product, on_delete=models.CASCADE)
     quantity = models.IntegerField(default=0)
     created_at = models.DateField(auto_now_add=True)
@@ -105,7 +100,6 @@ class EnterProduct(CodeGenerate):
 
 
 class ExportProduct(CodeGenerate):
-    """Do'kondan maxsulotlarni sotilishi yani chiqishi"""
     product = models.ForeignKey(Product, on_delete=models.CASCADE)
     quantity = models.IntegerField(default=1)
     created_at = models.DateField(auto_now_add=True)
