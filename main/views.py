@@ -7,7 +7,6 @@ from django.db.models import Q
 from . import models
 
 
-# --------------------AUTH_-------------------------------
 
 def log_in(request):
     if request.method == "POST":
@@ -28,7 +27,6 @@ def log_out(request):
     return redirect('log_in')
 
 
-# -----------------Home-------------------------------
 @login_required(login_url='log_in')
 def home(request):
     start_date = request.GET.get('start_date')
@@ -78,7 +76,6 @@ def home(request):
     return render(request, 'index.html', context)
 
 
-# -----------------Category------------
 
 
 @login_required(login_url='log_in')
@@ -185,7 +182,6 @@ def product_delete(request, code):
     return redirect('product_list')
 
 
-# -------------------------------EnterProduct--------------------------
 @login_required(login_url='log_in')
 def enter_product_create(request):
     products = models.Product.objects.all()
@@ -288,7 +284,6 @@ def return_product_edit(request, code):
     return render(request, 'return_product/edit.html', context)
 
 
-# --------------QUERY----------------------------
 @login_required(login_url='login')
 def query(request):
     q = request.GET.get('q')
